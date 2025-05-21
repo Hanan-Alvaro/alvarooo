@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenZ Health Check</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #d8f3dc, #b7e4c7);
+      color: #1b4332;
+    }
+
+    header {
+      background-color: #40916c;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 0.5rem;
+    }
+
+    button {
+      margin-top: 2rem;
+      background-color: #52b788;
+      color: white;
+      border: none;
+      padding: 1rem;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #40916c;
+    }
+
+    .result {
+      margin-top: 2rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GenZ Health Check</h1>
+    <p>Cek kondisi kesehatanmu dengan cepat dan mudah!</p>
+  </header>
+
+  <div class="container">
+    <label for="usia">Usia</label>
+    <input type="number" id="usia" placeholder="Masukkan usia kamu" />
+
+    <label for="aktivitas">Seberapa aktif kamu?</label>
+    <select id="aktivitas">
+      <option value="rendah">Jarang olahraga</option>
+      <option value="sedang">Olahraga kadang-kadang</option>
+      <option value="tinggi">Olahraga rutin</option>
+    </select>
+
+    <label for="makan">Pola makanmu?</label>
+    <select id="makan">
+      <option value="buruk">Tidak teratur / junk food</option>
+      <option value="cukup">Kadang sehat, kadang tidak</option>
+      <option value="sehat">Seimbang dan bergizi</option>
+    </select>
+
+    <button onclick="cekKesehatan()">Cek Kesehatan</button>
+
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekKesehatan() {
+      const usia = parseInt(document.getElementById('usia').value);
+      const aktivitas = document.getElementById('aktivitas').value;
+      const makan = document.getElementById('makan').value;
+      const hasil = document.getElementById('hasil');
+
+      let skor = 0;
+
+      if (aktivitas === 'tinggi') skor += 2;
+      else if (aktivitas === 'sedang') skor += 1;
+
+      if (makan === 'sehat') skor += 2;
+      else if (makan === 'cukup') skor += 1;
+
+      if (usia < 10 || usia > 35 || isNaN(usia)) {
+        hasil.innerText = "Masukkan usia yang valid antara 10 - 35 tahun.";
+        return;
+      }
+
+      let feedback = '';
+      if (skor >= 4) {
+        feedback = "Kesehatanmu oke banget! Pertahankan ya! 💪";
+      } else if (skor >= 2) {
+        feedback = "Kesehatan kamu cukup, tapi masih bisa ditingkatkan! 🚀";
+      } else {
+        feedback = "Wah, kamu perlu mulai hidup lebih sehat! 🌱";
+      }
+
+      hasil.innerText = feedback;
+    }
+  </script>
+</body>
+</html>
